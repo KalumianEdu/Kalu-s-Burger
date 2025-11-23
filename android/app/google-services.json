@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "93242217834",
+    "project_id": "kalu-s-burger",
+    "storage_bucket": "kalu-s-burger.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93242217834:android:64614127d8d46d15058113",
+        "android_client_info": {
+          "package_name": "com.example.fooddeliveryapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm8HsCyzQgUmJBa2h87XNHtPk8lrBgHDo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
