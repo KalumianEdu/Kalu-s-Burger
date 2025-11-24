@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fooddeliveryapp/models/resturant.dart';
 import 'package:fooddeliveryapp/theme/custom_theme.dart';
 
 // pages
-import 'package:fooddeliveryapp/pages/login_page.dart';
 import 'package:fooddeliveryapp/pages/home_page.dart';
 
 //auth
