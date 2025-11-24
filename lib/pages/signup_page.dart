@@ -19,6 +19,8 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPage extends State<SignupPage> {
+  bool isLoading = false;
+
   //Controllers
   final nameController = TextEditingController();
   final emailController = TextEditingController();
@@ -26,6 +28,9 @@ class _SignupPage extends State<SignupPage> {
 
   // Sign up in the app
   Future<void> singUp() async {
+    isLoading = true;
+    setState(() {});
+
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
@@ -37,7 +42,9 @@ class _SignupPage extends State<SignupPage> {
         emailController.text.trim(),
         passController.text.trim(),
       );
-
+      setState(() {
+        isLoading = false;
+      });
       Navigator.of(
         context,
       ).push(MaterialPageRoute(builder: (context) => HomePage()));
@@ -60,80 +67,89 @@ class _SignupPage extends State<SignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Register Page")),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+            )
+          : ListView(
               children: [
-                // Welcome him
-                Container(
-                  margin: EdgeInsets.only(top: 40),
-                  child: Lottie.asset('assets/lottie/Welcome.json'),
-                ),
-                SizedBox(height: 70),
-
-                // Title Sign up
-                Text(
-                  'Please fill the form to register ',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                SizedBox(height: 10),
-
-                // Text form field for full name
-                CustomTextFormField(
-                  customHint: 'Name',
-                  customController: nameController,
-                  customLength: 25,
-                  customPattern: RegExp(r'^[A-Za-z ]+'),
-                ),
-                SizedBox(height: 10),
-
-                // Text form field for email name
-                CustomTextFormField(
-                  customHint: 'Email',
-                  customController: emailController,
-                  customLength: 60,
-                  customPattern: RegExp(r'[a-zA-Z0-9@._\-+]'),
-                ),
-                SizedBox(height: 10),
-
-                // Text form field for password
-                CustomPassFormField(
-                  customHint: 'Password',
-                  customController: passController,
-                  customLength: 20,
-                ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Lottie.asset(
-                      'assets/lottie/fast food mobile app loading.json',
-                      width: 150,
-                    ),
-                  ],
-                ),
-
-                // Register button
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomMaterialButton(
-                        onPressed: () {
-                          singUp();
-                        },
-                        btnTitle: "Register Now",
+                Padding(
+                  padding: const EdgeInsets.all(30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Welcome him
+                      Container(
+                        margin: EdgeInsets.only(top: 40),
+                        child: Lottie.asset('assets/lottie/Welcome.json'),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 70),
+
+                      // Title Sign up
+                      Text(
+                        'Please fill the form to register ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+
+                      // Text form field for full name
+                      CustomTextFormField(
+                        customHint: 'Name',
+                        customController: nameController,
+                        customLength: 25,
+                        customPattern: RegExp(r'^[A-Za-z ]+'),
+                      ),
+                      SizedBox(height: 10),
+
+                      // Text form field for email name
+                      CustomTextFormField(
+                        customHint: 'Email',
+                        customController: emailController,
+                        customLength: 60,
+                        customPattern: RegExp(r'[a-zA-Z0-9@._\-+]'),
+                      ),
+                      SizedBox(height: 10),
+
+                      // Text form field for password
+                      CustomPassFormField(
+                        customHint: 'Password',
+                        customController: passController,
+                        customLength: 20,
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Lottie.asset(
+                            'assets/lottie/fast food mobile app loading.json',
+                            width: 150,
+                          ),
+                        ],
+                      ),
+
+                      // Register button
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CustomMaterialButton(
+                              onPressed: () {
+                                singUp();
+                              },
+                              btnTitle: "Register Now",
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }
